@@ -1,6 +1,6 @@
 // import { nextTick } from "vue";
-import { mount } from "@vue/test-utils";
-import TimelineView from "@/components/TimelineView.vue";
+import { mount } from '@vue/test-utils'
+import TimelineView from '@/components/TimelineView.vue'
 import { today, thisWeek, thisMonth } from '@/mocks'
 
 describe('TimelineView', () => {

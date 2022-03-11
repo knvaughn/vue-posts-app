@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-import { Post } from "@/mocks"
-import { defineComponent } from "vue"
+import { Post } from '@/mocks'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "TimelinePost",
+  name: 'TimelinePost',
 
   props: {
       post: {

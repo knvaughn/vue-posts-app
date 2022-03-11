@@ -22,22 +22,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue"
+import { defineComponent, ref, computed } from 'vue'
 import moment from 'moment'
 import { Post, today, thisWeek, thisMonth } from '../mocks'
 import TimelinePost from './TimelinePost.vue'
 
-type Period = "Today" | "This Week" | "This Month"
+type Period = 'Today' | 'This Week' | 'This Month'
+
+function delay() {
+  return new Promise(res => {
+    setTimeout(res, 2000)
+  })
+}
 
 export default defineComponent({
-  name: "TimelineView",
+  name: 'TimelineView',
 
   components: {
     TimelinePost
   },
 
-  setup() {
-    const periods: Array<Period> = ["Today", "This Week", "This Month"]
+  async setup() {
+    await delay()
+    const periods: Array<Period> = ['Today', 'This Week', 'This Month']
     const currentPeriod = ref<Period>('Today')
     const posts = computed(() => {
       return [today, thisWeek, thisMonth].filter((post: Post) => {
