@@ -44,7 +44,7 @@ export default defineComponent({
 
   async setup() {
     await delay()
-    const periods: Array<Period> = ['Today', 'This Week', 'This Month']
+    const periods: Period[] = ['Today', 'This Week', 'This Month']
     const currentPeriod = ref<Period>('Today')
     const posts = computed(() => {
       return [today, thisWeek, thisMonth].filter((post: Post) => {
