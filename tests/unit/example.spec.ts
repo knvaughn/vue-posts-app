@@ -1,17 +1,44 @@
 // import { nextTick } from "vue";
-import { mount } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import TimelineView from '@/components/TimelineView.vue'
 import { today, thisWeek, thisMonth } from '@/mocks'
 
-describe('TimelineView', () => {
-  it('Renders todays post by default', () => {
-    const wrapper = mount(TimelineView)
+jest.mock('axios', () => ({
+  get: () => {
+    return Promise.resolve({
+        data: [today, thisWeek, thisMonth]
+    })
+  }
+}))
 
+function mountTimeline() {
+  return mount({
+    components: {
+      TimelineView
+    },
+    template: `
+      <suspense>
+        <template #default>
+          <timeline-view>
+        </template>
+        <template #fallback>
+          ...Loading
+        </template>
+      </suspense>
+    `
+  })
+}
+
+describe('TimelineView', () => {
+  it('Renders todays post by default', async () => {
+    const wrapper = mountTimeline()
+    await flushPromises()
     expect(wrapper.html()).toContain(today.created.format('Do MMM'))
   })
 
   it('Updates when the This Week period is clicked', async () => {
-    const wrapper = mount(TimelineView)
+    const wrapper = mountTimeline()
+    await flushPromises()
 
     // wait for the next frame
     // await nextTick()
@@ -24,7 +51,8 @@ describe('TimelineView', () => {
 
   // you can use it.only to focus on one test at a time
   it('Updates when the This Month period is clicked', async () => {
-    const wrapper = mount(TimelineView)
+    const wrapper = mountTimeline()
+    await flushPromises()
 
     // wait for the next frame
     // await nextTick()
