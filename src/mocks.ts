@@ -6,10 +6,13 @@ export interface Post {
     created: moment.Moment
 }
 
+const createdToday = moment()
+createdToday.isValid()
+
 export const today: Post = {
     id: '1',
     title: 'Today',
-    created: moment()
+    created: createdToday
 }
 
 export const thisWeek: Post = {
